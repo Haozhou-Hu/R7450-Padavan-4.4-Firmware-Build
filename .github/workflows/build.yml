@@ -10,7 +10,7 @@ on:
     types: [started]
 
 env:
-  src_git: https://github.com/MeIsReallyBa/padavan-4.4.git
+  src_git: https://github.com/vb1980/padavan-4.4.git
   src_dir: /opt/padavan
   work_dir: /opt/padavan/trunk
   firmware_dir: /opt/firmware
@@ -24,13 +24,13 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     strategy:
       matrix:
-        device: [RM2100]
+        device: [NETGEAR-R7450]
     permissions: 
       contents: write
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@main
 
     - name: Install dependencies
       if: (!cancelled())
@@ -47,8 +47,6 @@ jobs:
       if: (!cancelled())
       run: |
         git clone --depth=1 $src_git $src_dir
-        cd $src_dir/toolchain-mipsel && chmod +x dl_toolchain.sh
-        ./dl_toolchain.sh
     
     - name: Import Custom configs
       if: (!cancelled())
